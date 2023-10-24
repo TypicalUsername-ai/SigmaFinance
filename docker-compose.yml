@@ -8,6 +8,18 @@ name: sigmafinance-supabase
 version: "3.8"
 services:
 
+  web:
+    container_name: sigma-finance-web
+    image: node:20.8-alpine3.17
+    restart: unless-stopped
+    user: node
+    working_dir: /home/node/app
+    volumes: 
+      - ./web:/home/node/app
+    ports:
+      - "8080:8080"
+    command: "yarn dev --host 0.0.0.0 --port 8080"
+  
   studio:
     container_name: supabase-studio
     image: supabase/studio:20230921-d657f29
