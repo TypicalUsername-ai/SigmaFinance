@@ -1,4 +1,5 @@
 import App from "../App"
+import LoginPage from "../pages/LoginPage"
 import RegistrationPage from "../pages/RegistrationPage"
 
 const routes = [
@@ -9,6 +10,10 @@ const routes = [
     {
         path: "/register",
         element: <RegistrationPage/>
+    },
+    {
+        path:"/login",
+        element: <LoginPage/>
     }
 ]
 
