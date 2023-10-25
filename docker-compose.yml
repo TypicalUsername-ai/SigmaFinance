@@ -145,6 +145,12 @@ services:
       GOTRUE_EXTERNAL_PHONE_ENABLED: ${ENABLE_PHONE_SIGNUP}
       GOTRUE_SMS_AUTOCONFIRM: ${ENABLE_PHONE_AUTOCONFIRM}
 
+      ## GOTRUE GITHUB CONFIG
+      GOTRUE_EXTERNAL_GITHUB_ENABLED: true
+      GOTRUE_EXTERNAL_GITHUB_CLIENT_ID: 971c68b6d0ef9db4cc55
+      GOTRUE_EXTERNAL_GITHUB_SECRET: ${GITHUB_SECRET}
+      GOTRUE_EXTERNAL_GITHUB_REDIRECT_URI: http://localhost:8000/auth/v1/callback
+
   rest:
     container_name: supabase-rest
     image: postgrest/postgrest:v11.2.0
