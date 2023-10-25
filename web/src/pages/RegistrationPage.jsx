@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import validator from "validator";
+import { SupabaseContext } from "../supabaseContext";
 
 export default function RegistrationPage () {
 
+    const supabase = useContext(SupabaseContext);
+    
     const [userData, setUserData] = useState("");
     const [errors, setErrors] = useState({});
     const {username, email, password, passwordRepeat} = userData;
@@ -33,8 +36,8 @@ export default function RegistrationPage () {
 
         return errors;
     }
-
-    const handleChange = (event) => {
+    
+    const handleChange = async (event) => {
         const {name, value} = event.target;
         setUserData((prevData) => ({...prevData, [name]: value }));
     };
@@ -46,12 +49,36 @@ export default function RegistrationPage () {
             console.log(errors)
             return;
         }
-        setErrors({});
-        console.log(userData);
+        const {data, error} = await supabase.auth.signUp({
+            email: userData.email,
+            password: userData.password
+        })
+        if (error){
+            console.error("ERROR", error)
+        }else {
+            // redirect logged in user to home here
+            setErrors({});
+            console.log(data.session);
+        }
+        
     }
 
+    
+    const registerOauth = async (provider) => {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: provider
+        })
+
+        if (error) {
+            console.error("ERROR", error)
+        } else {
+            // redirect logged in user here
+            console.log(data.session)
+        }
+    }
     return(
         <div>
+            <button onClick={() => registerOauth('github')}> Register with GitHub </button>
             <section style={{display:"flex", flexDirection:"column", maxWidth:"500px", margin:"auto", position:"relative", top:"100px"}}>
                 <h1>Ready to become a Sigma🗿</h1>  
                 <label>Name</label>
