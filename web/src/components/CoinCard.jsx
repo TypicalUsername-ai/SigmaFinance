@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const CoinCard = (props) => {
   var name = props.name
   var symbol = props.symbol
@@ -8,7 +10,7 @@ const CoinCard = (props) => {
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
         <div className="card-actions justify-end">
-          <button className="btn">See more</button>
+          <Link to={`/coin/${symbol}`} className="btn">See more</Link>
         </div>
       </div>
     </div>)
