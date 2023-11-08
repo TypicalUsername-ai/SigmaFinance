@@ -76,9 +76,12 @@ export default function RegistrationPage () {
             console.log(data.session)
         }
     }
+
+
+
     return(
         <div>
-            <button onClick={() => registerOauth('github')}> Register with GitHub </button>
+            
             <section style={{display:"flex", flexDirection:"column", maxWidth:"500px", margin:"auto", position:"relative", top:"100px"}}>
                 <h1>Ready to become a Sigma🗿</h1>  
                 <label>Name</label>
@@ -99,6 +102,11 @@ export default function RegistrationPage () {
                 <input name="passwordRepeat" onChange={(e) => handleChange(e)}></input>
                 
                 <button onClick={handleSave}>Enter the Sigma Finance</button>
+                <h3>Or Register with one of the providers</h3>
+                <button onClick={() => registerOauth('github')}> Register with GitHub </button>
+                <div className="github-logo"></div>
+                <button onClick={() => registerOauth('google')}> Register with Google </button>
+                <div className="google-logo"></div>
             </section>
         </div>
     );
