@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
-import './mvp.css'
+import Navbar from './components/Navbar';
 import { SupabaseContext } from './supabaseContext'
 import { getAllCoins } from './functions/coins';
+import CoinCard from './components/CoinCard';
 
 function App() {
 
@@ -18,16 +19,20 @@ function App() {
       data => setCoins(data)
     )
   }, [])
-  
+
   return (
-    <article>
-      {JSON.stringify(user)}
+    <div className='h-screen w-screen'>
+      <Navbar />
       <h1> We support the following coins: </h1>
-      {coins.slice(0, 24).map(
-        name => <a key={name[0]} style={{width:'25%', padding: '20px'}} href={`/coin/${name[0]}`}>{name[1]}</a>
-      )}
+      <div className='grid grid-cols-3'>
+        {coins.slice(0, 24).map(
+          name => <div className='col-span-1'>
+            <CoinCard symbol={name[0]} name={name[1]} />
+          </div>
+        )}
+      </div>
       <h2> and more...</h2>
-    </article>
+    </div>
   )
 }
 

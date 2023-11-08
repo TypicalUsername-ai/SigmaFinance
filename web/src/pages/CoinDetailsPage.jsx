@@ -12,15 +12,20 @@ export const CoinDetailsPage = () => {
   const init = [{}]
   init[0][against] = 10
   const [prices, setPrices] = useState(init);
+  const [alert, setAlert] = useState(null);
 
   useEffect(() => {
     getPriceHistory(coin, against, type, count).then(
-      data => setPrices(data)
+      data => setPrices(data),
+      err => {
+        console.log(err.message)  
+        setAlert(err.message)
+      }
     )    
   }, [coin, against, type, count])
   
   return (
-  <article>
+  <article className="max-h-screen">
     <h1> Coin name: {coin} </h1>
     <h2> Today's price: 1 {coin} = {prices[0][against]} {against} </h2>
     <h3> Highest price (in range): {Object.values(prices.reduce((prev, curr) => { return prev[against] >= curr[against] ? prev : curr})).join(' at ')} {against}</h3>
@@ -47,6 +52,13 @@ export const CoinDetailsPage = () => {
           console.log("outs:", values); 
           return values}}/>
     </LineChart>      
+    {alert ?
+      <div className="alert alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <span>Error! Task failed successfully.</span>
+      </div>
+      : null
+    }
   </article>
   )
 }
