@@ -151,6 +151,11 @@ services:
       GOTRUE_EXTERNAL_GITHUB_SECRET: ${GITHUB_SECRET}
       GOTRUE_EXTERNAL_GITHUB_REDIRECT_URI: http://localhost:8000/auth/v1/callback
 
+      GOTRUE_EXTERNAL_GOOGLE_ENABLED: true
+      GOTRUE_EXTERNAL_GOOGLE_CLIENT_ID: 758648248850-4d219kk1e2hjh869hu04565c3ftmmmep.apps.googleusercontent.com
+      GOTRUE_EXTERNAL_GOOGLE_SECRET: ${GOOGLE_SECRET}
+      GOTRUE_EXTERNAL_GOOGLE_REDIRECT_URI: http://localhost:8000/auth/v1/callback
+
   rest:
     container_name: supabase-rest
     image: postgrest/postgrest:v11.2.0

@@ -76,9 +76,13 @@ export default function RegistrationPage () {
             console.log(data.session)
         }
     }
+
+
+
     return(
         <div>
             <button onClick={() => registerOauth('github')}> Register with GitHub </button>
+            <button onClick={() => registerOauth('google')}> Register with Google </button>
             <section style={{display:"flex", flexDirection:"column", maxWidth:"500px", margin:"auto", position:"relative", top:"100px"}}>
                 <h1>Ready to become a Sigma🗿</h1>  
                 <label>Name</label>
