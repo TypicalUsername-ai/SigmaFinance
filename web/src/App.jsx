@@ -34,7 +34,7 @@ function App() {
       <h1 className='text-3xl text-bold p-4'>
         Some of the <b>{coins.length}</b> supported currencies:
       </h1>
-      <div className='grid grid-cols-3'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
         {coins.slice(0, 24).map(
           name => <div className='col-span-1'>
             <CoinCard symbol={name[0]} name={name[1]} />
