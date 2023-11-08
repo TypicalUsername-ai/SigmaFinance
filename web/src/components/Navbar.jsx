@@ -31,7 +31,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className='m-2'>
+      <div className='m-2 flex felx-row gap-2'>
         <input onChange={(e) => setQuery(e.target.value)} onKeyDownCapture={(e) => { if (e.code == "Enter") { onSearch(query) } }} placeholder='Search' className='input input-bordered rounded-md' />
         <button onClick={() => onSearch(query)} className='btn btn-secondary normal-case text-lg'>Search</button>
         <UserTab/>
