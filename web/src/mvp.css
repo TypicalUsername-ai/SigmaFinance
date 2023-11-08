@@ -534,3 +534,28 @@ blockquote footer {
     background-color: rgb(202, 202, 232);
     border-radius: 10px;
 }
+
+.google-logo{
+    background-color: white;
+    background-image: url(./assets/7123025_logo_google_g_icon.png);
+    background-position: center;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    bottom: 58px;
+    left:70%;
+    border-radius: 10px;
+}
+.github-logo{
+    background-color: white;
+    background-image: url(./assets/github-mark.png);
+    background-position: center;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    bottom: 58px;
+    left:70%;
+    border-radius: 10px;
+}
