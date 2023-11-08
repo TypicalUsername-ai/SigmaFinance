@@ -68,7 +68,7 @@ export default function LoginPage() {
             <span className="label-text text-xl">Password</span>
           </label>
           <input type="password" name="password" onChange={(e) => handleChange(e)}
-            placeholder="Your e-mail"
+            placeholder="Your password"
             className="input input-bordered w-full" />
           <label className="label">
             <span className="label-text-alt text-error text-lg">{errors.password}</span>
