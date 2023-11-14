@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getCoinPrice, getPriceHistory } from "../functions/coins"
 import { useParams } from 'react-router-dom'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts'
+import Navbar from "../components/Navbar"
 
 export const CoinDetailsPage = () => {
 
@@ -26,6 +27,7 @@ export const CoinDetailsPage = () => {
   
   return (
   <article className="max-h-screen">
+    <Navbar/>
     <h1> Coin name: {coin} </h1>
     <h2> Today's price: 1 {coin} = {prices[0][against]} {against} </h2>
     <h3> Highest price (in range): {Object.values(prices.reduce((prev, curr) => { return prev[against] >= curr[against] ? prev : curr})).join(' at ')} {against}</h3>
