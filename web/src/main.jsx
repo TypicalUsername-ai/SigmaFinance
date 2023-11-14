@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './mvp.css'
+// import './mvp.css'
+import './index.css'
 import {
 	createBrowserRouter,
 	RouterProvider
@@ -17,6 +18,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <SupabaseContext.Provider value={supabase}>
       <React.StrictMode>
       <RouterProvider router={router}/>
-    </React.StrictMode>,
+    </React.StrictMode>
   </SupabaseContext.Provider>
 )
