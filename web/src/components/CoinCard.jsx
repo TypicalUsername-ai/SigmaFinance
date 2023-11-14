@@ -12,6 +12,8 @@ const CoinCard = (props) => {
         <div className="card-actions justify-end">
           <Link to={`/coin/${symbol}`} className="btn">See more</Link>
         </div>
+        <button className="card-actions justify-end">Track</button>
+         
       </div>
     </div>)
 }
