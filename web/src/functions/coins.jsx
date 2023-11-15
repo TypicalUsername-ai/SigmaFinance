@@ -9,40 +9,45 @@ export const getAllCoins = async () => {
   return data
 }
 
-export const getCoinPrice = async (ticker, against='usdt', dateString='latest') => {
-  
+export const getCoinPrice = async (ticker, against = 'usdt', dateString = 'latest') => {
+
   const response = await axios.get(`${BASE_URL}/${dateString}/currencies/${ticker}/${against}.min.json`);
   return response.data
 }
 
-export const getPriceHistory = async (ticker, against='usdt', type='days'|'weeks'|'months', daysBack=7) => {
+export const getPriceHistory = async (ticker, against = 'usdt', type = 'days' | 'weeks' | 'months', daysBack = 7) => {
 
   let data = []
 
   const response = await axios.get(`${BASE_URL}/latest/currencies/${ticker}/${against}.min.json`);
   data.push(response.data);
-  
+
   const d = new Date();
-  for (var i = 0; i < daysBack; i++){
+  for (var i = 0; i < daysBack; i++) {
     switch (type) {
-      case 'days': 
-        console.log('days')
+      case 'days':
+        // console.log('days')
         d.setDate(d.getDate() - 1);
         break;
-      case 'weeks': 
-        console.log('weeks')
+      case 'weeks':
+        // console.log('weeks')
         d.setDate(d.getDay() - 1);
         break;
-      case 'months': 
-        console.log('months')
+      case 'months':
+        // console.log('months')
         d.setDate(d.getDate() - 30);
         break;
     }
     const datestring = d.toISOString().split('T')[0];
-    console.log(datestring)
-    data.push(await getCoinPrice(ticker, against, datestring));
+    // console.log(datestring)
+    try {
+      const priceset = await getCoinPrice(ticker, against, datestring);
+      data.push(priceset);
+    } catch {
+
+    }
   }
-  
+
   return data
 }
 
