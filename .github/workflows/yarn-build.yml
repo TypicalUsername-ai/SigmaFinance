@@ -1,0 +1,33 @@
+# This workflow will do a clean installation of yarn dependencies, cache/restore them, and build the source code
+
+name: Yarn Frontend Build CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js 20
+      uses: actions/setup-node@v3
+      with:
+        dir: 'web'
+        node-version: 20.8.0
+    - name: Install dependencies
+      uses: borales/actions-yarn@v4
+      with:
+        dir: 'web'
+        cmd: install
+    - name: Build project
+      uses: borales/actions-yarn@v4
+      with:
+        dir: 'web'
+        cmd: build
