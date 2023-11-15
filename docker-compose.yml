@@ -18,7 +18,7 @@ services:
       - ./web:/home/node/app
     ports:
       - "8080:8080"
-    command: "yarn dev --host 0.0.0.0 --port 8080"
+    entrypoint: "/bin/sh -c \"yarn install; yarn dev --host 0.0.0.0 --port 8080\""
   
   studio:
     container_name: supabase-studio
