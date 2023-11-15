@@ -21,6 +21,7 @@ jobs:
       with:
         dir: 'web'
         node-version: 20.8.0
+        cache: 'npm'
     - name: Install dependencies
       uses: borales/actions-yarn@v4
       with:
