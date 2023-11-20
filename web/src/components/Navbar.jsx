@@ -34,12 +34,12 @@ const Navbar = () => {
             <Link to="/" className="btn btn-ghost normal-case text-lg"> Social </Link>
           </div>
         </div>
-        <div class="dropdown">
+        <div className="dropdown">
           <input 
             tabIndex={0}
             onChange={(e) => setQueried(coins.search(e.target.value))}  
             placeholder='Search' className='input input-bordered rounded-md' />
-          <div tabIndex={0} class="dropdown-content max-h-96 overflow-scroll z-[40] p-2 bg-primary-content flex flex-col">
+          <div tabIndex={0} className="dropdown-content max-h-96 overflow-scroll z-[40] p-2 bg-primary-content flex flex-col">
             {queried.map(
               (entry) => <Link 
                 className='p-2 btn btn-ghost rounded'

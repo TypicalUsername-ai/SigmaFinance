@@ -19,8 +19,9 @@ jobs:
     - name: Setup Node.js 20
       uses: actions/setup-node@v3
       with:
-        dir: 'web'
+        cache-dependency-path: 'web/yarn.lock'
         node-version: 20.8.0
+        cache: 'npm'
     - name: Install dependencies
       uses: borales/actions-yarn@v4
       with:
