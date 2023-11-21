@@ -91,8 +91,6 @@ export const CoinDetailsPage = () => {
             </select>
           </div>
           <input type="range" min="2" max="10" value={count} onChange={e => setCount(e.target.value)} className="range m-4" step="1" />
-
-
           <LineChart width={1000} height={300} data={prices} margin={{ top: 5, right: 30, left: 50, bottom: 5 }}>
             <Line type="monotone" label="date" dataKey={against} stroke="#8884d8" />
             <CartesianGrid stroke="#ccc" />
