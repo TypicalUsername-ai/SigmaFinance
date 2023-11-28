@@ -3,6 +3,9 @@ import { getCoinPrice, getPriceHistory } from "../functions/coins"
 import { useParams } from 'react-router-dom'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts'
 import Navbar from "../components/Navbar"
+import { makeObjectTracked } from "../functions/userCoins"
+import { SupabaseContext } from '../supabaseContext'
+import { useContext } from "react"
 
 export const CoinDetailsPage = () => {
 
@@ -16,6 +19,7 @@ export const CoinDetailsPage = () => {
   const [prices, setPrices] = useState(init);
   const [alert, setAlert] = useState(null);
 
+
   useEffect(() => {
     getPriceHistory(coin, against, type, count).then(
       data => setPrices(data),
@@ -25,6 +29,8 @@ export const CoinDetailsPage = () => {
       }
     )    
   }, [coin, against, type, count])
+
+  const supabase = useContext(SupabaseContext);
   
   return (
   <article className="max-h-screen ">
@@ -46,7 +52,7 @@ export const CoinDetailsPage = () => {
               <input type="number" value={count} onChange={e => e.target.value >= 0 ? setCount(e.target.value) : 0}/>
             </form>
       </section>
-      <button className="btn btn-primary">{track}</button>
+      <button onClick={() => makeObjectTracked(supabase, true, coin  )}  className="btn btn-primary">{track}</button>
    </section>
 
       

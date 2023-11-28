@@ -99,6 +99,8 @@ export const makeObjectUnFavourite = async(supabase, target_id) => {
 
 export const makeObjectTracked = async(supabase, _target_type, _target_id) => {
     const user = await supabase.auth.getUser();
+    console.log(_target_id)
+
 
     let { data, error } = await supabase
         .from('actions')

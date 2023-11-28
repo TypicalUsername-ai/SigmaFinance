@@ -4,6 +4,8 @@ import { SupabaseContext } from '../supabaseContext'
 import { getAllCoins } from '../functions/coins';
 import CoinCard from '../components/CoinCard';
 import BigCoinCard from "../components/BigCoinCard";
+import { getTrackedIndices } from "../functions/userCoins";
+
 export default function AccountPage () {
 
     const supabase = useContext(SupabaseContext);
@@ -16,7 +18,7 @@ export default function AccountPage () {
         getAllCoins().then(
           data => {
             shuffleArray(data)
-            setCoins(data)
+            setCoins(data)  
           }
         )
       }, [])
@@ -33,6 +35,7 @@ export default function AccountPage () {
             <Navbar/>
             <section className="m-10">
               <h1 className="text-4xl">Welcome back</h1>
+                <button onClick={console.log(indices)}>TEST</button>
                 <h2  className="text-3xl m-auto my-0  w-1/2 mt-20">Your favourite index:</h2>
                 <BigCoinCard
                 name="TEST"
