@@ -42,17 +42,28 @@ export const getFavouriteIndex = async(supabase) => {
     }
 }
 
+export const canIndexBeFollowed = async(supabase, _target_id) => {
+
+    const user = await supabase.auth.getUser();
+
+    let trackedIndices = await getTrackedIndices(supabase);
+    let favouriteIndex = await getFavouriteIndex(supabase);
+    if(trackedIndices.some(obj => obj.target_id == _target_id) ||
+        favouriteIndex.target_id == _target_id) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// export const canIndexBeFavourite = async(supabase, target_id) => {
+
+// }
+
 export const makeObjectFavourite = async(supabase, target_id) => {
 
     const user = await supabase.auth.getUser();
 
-    console.log(target_id)
-    // let { data, error } = await supabase
-    //     .from('actions')
-    //     .select('*')
-    //     .eq('initiator_id', user.data.user.id)
-    //     .eq('target_id', target_id)
-    // console.log(data)
     let { data, error } = await supabase
         .from('actions')
         .update({ action_type: 0 })
