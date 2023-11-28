@@ -1,15 +1,19 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Fuse from 'fuse.js'
 import UserTab from './UserTab';
+import { getAllCoins } from '../functions/coins';
 
 const Navbar = () => {
 
-  const navigate = useNavigate()
-  const [query, setQuery] = useState('');
+  const [coins, setCoins] = useState(new Fuse());
+  const [queried, setQueried] = useState([]);
 
-  const onSearch = (query) => {
-    navigate(`/search?query=${query}`)
-  }
+  useEffect(() => {
+    getAllCoins().then(
+      data => setCoins(new Fuse(data.map((d) => { return {symbol: d[0], name: d[1]} }), {keys: ['symbol', 'name']}))
+    )
+  } , [])
 
   return (
     <div className="navbar bg-secondary-content p-4 justify-between">
@@ -30,11 +34,23 @@ const Navbar = () => {
             <Link to="/" className="btn btn-ghost normal-case text-lg"> Social </Link>
           </div>
         </div>
+        <div className="dropdown">
+          <input 
+            tabIndex={0}
+            onChange={(e) => setQueried(coins.search(e.target.value))}  
+            placeholder='Search' className='input input-bordered rounded-md' />
+          <div tabIndex={0} className="dropdown-content max-h-96 overflow-scroll z-[40] p-2 bg-primary-content flex flex-col">
+            {queried.map(
+              (entry) => <Link 
+                className='p-2 btn btn-ghost rounded'
+                to={`/coin/${entry.item.symbol}`}>
+                {entry.item.name} (${entry.item.symbol})</Link>
+            )}
+          </div>
+        </div>  
       </div>
-      <div className='m-2 flex felx-row gap-2'>
-        <input onChange={(e) => setQuery(e.target.value)} onKeyDownCapture={(e) => { if (e.code == "Enter") { onSearch(query) } }} placeholder='Search' className='input input-bordered rounded-md' />
-        <button onClick={() => onSearch(query)} className='btn btn-secondary normal-case text-lg'>Search</button>
-        <UserTab/>
+      <div className='m-2 flex flex-row gap-2'>
+      <UserTab/>
       </div>
     </div>
   )
