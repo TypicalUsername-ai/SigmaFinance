@@ -1,0 +1,1 @@
+ALTER POLICY "update_actions_auth_policy" ON "public"."actions" USING (auth.uid() = initiator_id);
