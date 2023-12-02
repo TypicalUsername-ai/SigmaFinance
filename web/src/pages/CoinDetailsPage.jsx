@@ -3,13 +3,13 @@ import { getCoinPrice, getPriceHistory } from "../functions/coins"
 import { useParams } from 'react-router-dom'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts'
 import Navbar from "../components/Navbar"
-import { makeObjectTracked } from "../functions/userCoins"
+import { canIndexBeFollowed, makeObjectTracked, makeObjectUnTracked } from "../functions/userCoins"
 import { SupabaseContext } from '../supabaseContext'
 import { useContext } from "react"
 
 export const CoinDetailsPage = () => {
 
-  const [track, setTrack] = useState("Add to Tracked");
+  const [track, setTrack] = useState();
   const against = 'usdt'
   const { coin } = useParams();
   const [type, setType] = useState('days')
@@ -18,19 +18,33 @@ export const CoinDetailsPage = () => {
   init[0][against] = 10
   const [prices, setPrices] = useState(init);
   const [alert, setAlert] = useState(null);
-
+  const supabase = useContext(SupabaseContext);
 
   useEffect(() => {
-    getPriceHistory(coin, against, type, count).then(
-      data => setPrices(data),
-      err => {
-        console.log(err.message)  
-        setAlert(err.message)
-      }
-    )    
-  }, [coin, against, type, count])
+    const fetchData = async () => {
+      try {
+        const data = await getPriceHistory(coin, against, type, count);
+        setPrices(data);
 
-  const supabase = useContext(SupabaseContext);
+        const isIndexFollowed = await canIndexBeFollowed(supabase, coin);
+        
+        if (isIndexFollowed) {
+          document.getElementById("button-container").style.display = "block"
+          document.getElementById("button-add").style.display = "block"
+          document.getElementById("button-delete").style.display = "none"
+        } else {
+          document.getElementById("button-container").style.display = "block"
+          document.getElementById("button-add").style.display = "none"
+          document.getElementById("button-delete").style.display = "block"
+        }
+      } catch (err) {
+        console.log(err.message);
+        setAlert(err.message);
+      }
+    };
+
+    fetchData();
+  }, [coin, against, type, count, supabase]);
   
   return (
   <article className="max-h-screen ">
@@ -52,7 +66,11 @@ export const CoinDetailsPage = () => {
               <input type="number" value={count} onChange={e => e.target.value >= 0 ? setCount(e.target.value) : 0}/>
             </form>
       </section>
-      <button onClick={() => makeObjectTracked(supabase, true, coin  )}  className="btn btn-primary">{track}</button>
+      <div id="button-container">
+        <button onClick={() => makeObjectTracked(supabase, true, coin )}  className="btn btn-primary" id="button-add">Add to Tracked</button>
+        <button onClick={() => makeObjectUnTracked(supabase, coin)}  className="btn btn-primary" id="button-delete">Remove from Tracked</button>
+      </div>
+
    </section>
 
       

@@ -121,7 +121,7 @@ export const makeObjectTracked = async(supabase, _target_type, _target_id) => {
 
 export const makeObjectUnTracked = async(supabase, target_id) => {
     const user = await supabase.auth.getUser();
-
+    console.log(target_id)
     let { data, error } = await supabase
         .from('actions')
         .update({ action_type: -1 })
