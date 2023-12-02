@@ -8,8 +8,6 @@ import { SupabaseContext } from '../supabaseContext'
 import { useContext } from "react"
 
 export const CoinDetailsPage = () => {
-
-  const [track, setTrack] = useState();
   const against = 'usdt'
   const { coin } = useParams();
   const [type, setType] = useState('days')
@@ -19,16 +17,17 @@ export const CoinDetailsPage = () => {
   const [prices, setPrices] = useState(init);
   const [alert, setAlert] = useState(null);
   const supabase = useContext(SupabaseContext);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
+      const fetchData = async () => {
       try {
         const data = await getPriceHistory(coin, against, type, count);
         setPrices(data);
 
-        const isIndexFollowed = await canIndexBeFollowed(supabase, coin);
-        
-        if (isIndexFollowed) {
+        const canIndexFollow = await canIndexBeFollowed(supabase, coin);
+        console.log(canIndexFollow)
+        if (canIndexFollow) {
           document.getElementById("button-container").style.display = "block"
           document.getElementById("button-add").style.display = "block"
           document.getElementById("button-delete").style.display = "none"
@@ -42,10 +41,11 @@ export const CoinDetailsPage = () => {
         setAlert(err.message);
       }
     };
-
-    fetchData();
+      fetchData();
+    
+    
   }, [coin, against, type, count, supabase]);
-  
+
   return (
   <article className="max-h-screen ">
     <Navbar/>
@@ -67,7 +67,7 @@ export const CoinDetailsPage = () => {
             </form>
       </section>
       <div id="button-container">
-        <button onClick={() => makeObjectTracked(supabase, true, coin )}  className="btn btn-primary" id="button-add">Add to Tracked</button>
+        <button onClick={() => makeObjectTracked(supabase, true, coin)}  className="btn btn-primary" id="button-add">Add to Tracked</button>
         <button onClick={() => makeObjectUnTracked(supabase, coin)}  className="btn btn-primary" id="button-delete">Remove from Tracked</button>
       </div>
 

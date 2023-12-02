@@ -115,6 +115,7 @@ export const makeObjectTracked = async(supabase, _target_type, _target_id) => {
     if(error != null) {
         throw error;
     } else {
+        window.location.reload()
         return data;
     }
 }
@@ -132,6 +133,7 @@ export const makeObjectUnTracked = async(supabase, target_id) => {
     if(error != null) {
         throw error;
     } else {
+        window.location.reload()
         return data;
     }
 }
