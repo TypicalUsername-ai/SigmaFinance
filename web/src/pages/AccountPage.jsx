@@ -10,15 +10,19 @@ export default function AccountPage () {
 
     const supabase = useContext(SupabaseContext);
     const [coins, setCoins] = useState([]);
+    const [filterData, setFilterData] = useState([]); 
 
     useEffect(() => {
         supabase.auth.getUser().then(
-          data => console.log(data)
+          //data => console.log(data)
         )
         getAllCoins().then(
           data => {
             shuffleArray(data)
-            setCoins(data)  
+            console.log("Dane z GetAllCoins", data)
+             
+            let filteredArray = filterArray(data)
+            setCoins(coins) 
           }
         )
       }, [])
@@ -30,12 +34,30 @@ export default function AccountPage () {
         }
       }
 
+      function filterArray(array){
+       console.log("Array", array[1])
+       getTrackedIndices(supabase).then(
+          data => {
+            console.log("Data", data[0].target_id)
+            console.log("Array", array[0][0])
+            let result = []
+            console.log("Result before loop", result)
+            for (let i = 0; i<data.length; i++){
+              const tmp = array.filter((element) => data[i].target_id === element[0])
+              console.log("tmp", tmp)
+              result.push(tmp)
+              console.log("Result after iteration", result)
+            }
+            console.log("Result", result)
+        } 
+       )
+      }
+
     return (
         <div  className='h-screen w-screen '>
             <Navbar/>
             <section className="m-10">
               <h1 className="text-4xl">Welcome back</h1>
-                <button onClick={console.log(indices)}>TEST</button>
                 <h2  className="text-3xl m-auto my-0  w-1/2 mt-20">Your favourite index:</h2>
                 <BigCoinCard
                 name="TEST"
