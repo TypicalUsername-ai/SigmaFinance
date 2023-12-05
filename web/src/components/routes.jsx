@@ -3,6 +3,7 @@ import LoginPage from "../pages/LoginPage"
 import RegistrationPage from "../pages/RegistrationPage"
 import { CoinDetailsPage } from "../pages/CoinDetailsPage"
 import { CoinsList } from "./CoinList"
+import AccountPage from "../pages/AccountPage"
 
 const routes = [
     {
@@ -22,9 +23,14 @@ const routes = [
         element: <CoinsList/>
     },
     {
-    path: "/coin/:coin",
-    element: <CoinDetailsPage/>  
+        path: "/coin/:coin",
+        element: <CoinDetailsPage/>  
+    },
+    {
+       path:"/account",
+        element: <AccountPage/> 
     }
+    
 ]
 
 export default routes

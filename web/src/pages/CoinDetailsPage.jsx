@@ -3,9 +3,11 @@ import { getAvailableTickers, getPriceHistory } from "../functions/coins"
 import { useParams } from 'react-router-dom'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts'
 import Navbar from "../components/Navbar"
+import { canIndexBeFollowed, makeObjectTracked, makeObjectUnTracked } from "../functions/userCoins"
+import { SupabaseContext } from '../supabaseContext'
+import { useContext } from "react"
 
 export const CoinDetailsPage = () => {
-
   const [against, setAgainst] = useState('usd')
   const [againstList, setAgainstList] = useState([])
   const { coin } = useParams();
@@ -27,7 +29,9 @@ export const CoinDetailsPage = () => {
     const change = (final - initial) / initial * 100;
     return change;
   }, [prices])
+  const [canFollow, setCanFollow] = useState(true)
   const [alert, setAlert] = useState(null);
+  const supabase = useContext(SupabaseContext);
 
   useEffect(() => {
     getPriceHistory(coin, against, type, count).then(
@@ -40,6 +44,10 @@ export const CoinDetailsPage = () => {
       getAvailableTickers(coin).then(
         data => setAgainstList(data)
       )
+
+    canIndexBeFollowed(supabase, coin).then(
+      (b) => setCanFollow(b)
+    )
   }, [coin, against, type, count])
 
   return (
@@ -48,7 +56,15 @@ export const CoinDetailsPage = () => {
       <div className="w-4/5 h-5/6">
         <div className="flex flex-row w-full justify-between">
           <h1 className="text-primary font-bold text-3xl"> Coin name: {coin} </h1>
-          <button className="btn btn-primary rounded-xl"> Add to tracked </button>
+          <button className="btn btn-primary rounded-xl"
+            onClick={() => {
+              if (canFollow) {
+                makeObjectTracked(supabase, true, coin);
+              } else {
+                makeObjectUnTracked(supabase, true, coin);
+              }
+            }}
+          > {canFollow ? 'Add to tracked' : 'remove index tracking'} </button>
         </div>
         <div className="stats shadow">
           <div className="stat">
@@ -92,15 +108,14 @@ export const CoinDetailsPage = () => {
           </div>
           <input type="range" min="2" max="10" value={count} onChange={e => setCount(e.target.value)} className="range m-4" step="1" />
 
-
           <LineChart width={1000} height={300} data={prices} margin={{ top: 5, right: 30, left: 50, bottom: 5 }}>
             <Line type="monotone" label="date" dataKey={against} stroke="#8884d8" />
             <CartesianGrid stroke="#ccc" />
             <XAxis dataKey="date" />
             <YAxis label="price" type="number" domain={([min, max]) => {
               console.log("ins:", min, max)
-              if (!isFinite(min) ||!isFinite(max)) {
-                return [0,0]
+              if (!isFinite(min) || !isFinite(max)) {
+                return [0, 0]
               }
               const values = [(min - min * 0.1).toFixed(3), (max + max * 0.1).toFixed(3)];
               console.log("outs:", values);
