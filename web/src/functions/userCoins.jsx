@@ -56,10 +56,6 @@ export const canIndexBeFollowed = async(supabase, _target_id) => {
     }
 }
 
-// export const canIndexBeFavourite = async(supabase, target_id) => {
-
-// }
-
 export const makeObjectFavourite = async(supabase, target_id) => {
 
     const user = await supabase.auth.getUser();
@@ -74,7 +70,6 @@ export const makeObjectFavourite = async(supabase, target_id) => {
     if(error != null) {
         throw error;
     } else {
-        // console.log(data)
         return data;
     }
 }
