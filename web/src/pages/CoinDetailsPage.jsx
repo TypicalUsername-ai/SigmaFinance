@@ -3,7 +3,7 @@ import { getAvailableTickers, getPriceHistory } from "../functions/coins"
 import { useParams } from 'react-router-dom'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts'
 import Navbar from "../components/Navbar"
-import { canIndexBeFollowed, makeObjectTracked, makeObjectUnTracked, getFavouriteIndex } from "../functions/userCoins"
+import { canIndexBeFollowed, makeObjectTracked, makeObjectUnTracked, getFavouriteIndex, makeObjectFavourite, makeObjectUnFavourite } from "../functions/userCoins"
 import { SupabaseContext } from '../supabaseContext'
 import { useContext } from "react"
 
@@ -56,9 +56,11 @@ export const CoinDetailsPage = () => {
     console.log(indexF)
     if (indexF.target_id === coin){
       setCanFavourite(false)
+      await makeObjectUnFavourite(supabase, coin);
       //makeObjectUnTracked(supabase, false, coin);
     } else {
       setCanFavourite(true)
+      await makeObjectFavourite(supabase, coin);
       //makeObjectTracked(supabase, false, coin);
     }
   }
