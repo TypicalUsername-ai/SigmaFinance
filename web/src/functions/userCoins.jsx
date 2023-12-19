@@ -23,6 +23,10 @@ export const getTrackedIndices = async(supabase) => {
     }
 }
 
+/**
+ * 
+ * @param {SupabaseClient} supabase 
+ */
 export const getFavouriteIndex = async(supabase) => {
 
     const user = await supabase.auth.getUser();
@@ -42,6 +46,10 @@ export const getFavouriteIndex = async(supabase) => {
     }
 }
 
+/**
+ * 
+ * @param {SupabaseClient} supabase 
+ */
 export const canIndexBeFollowed = async(supabase, _target_id) => {
 
     const user = await supabase.auth.getUser();
@@ -56,6 +64,10 @@ export const canIndexBeFollowed = async(supabase, _target_id) => {
     }
 }
 
+/**
+ * 
+ * @param {SupabaseClient} supabase 
+ */
 export const makeObjectFavourite = async(supabase, target_id) => {
 
     const user = await supabase.auth.getUser();
@@ -74,6 +86,10 @@ export const makeObjectFavourite = async(supabase, target_id) => {
     }
 }
 
+/**
+ * 
+ * @param {SupabaseClient} supabase 
+ */
 export const makeObjectUnFavourite = async(supabase, target_id) => {
 
     const user = await supabase.auth.getUser();
@@ -92,6 +108,10 @@ export const makeObjectUnFavourite = async(supabase, target_id) => {
     }
 }
 
+/**
+ * 
+ * @param {SupabaseClient} supabase 
+ */
 export const makeObjectTracked = async(supabase, _target_type, _target_id) => {
     const user = await supabase.auth.getUser();
     console.log(_target_id)
@@ -115,6 +135,10 @@ export const makeObjectTracked = async(supabase, _target_type, _target_id) => {
     }
 }
 
+/**
+ * 
+ * @param {SupabaseClient} supabase 
+ */
 export const makeObjectUnTracked = async(supabase, target_id) => {
     const user = await supabase.auth.getUser();
     console.log(target_id)
