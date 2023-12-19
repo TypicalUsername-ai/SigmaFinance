@@ -4,12 +4,13 @@ import { SupabaseContext } from '../supabaseContext'
 import { getAllCoins } from '../functions/coins';
 import CoinCard from '../components/CoinCard';
 import BigCoinCard from "../components/BigCoinCard";
-import { getTrackedIndices } from "../functions/userCoins";
+import { getTrackedIndices, getFavouriteIndex } from "../functions/userCoins";
 
 export default function AccountPage() {
 
   const supabase = useContext(SupabaseContext);
   const [coins, setCoins] = useState([]);
+  const [favourite, setFavourite] = useState();
   const [filterData, setFilterData] = useState([]);
 
   useEffect(() => {
@@ -26,6 +27,12 @@ export default function AccountPage() {
         )
       }
     )
+    getFavouriteIndex(supabase).then(
+      data => {
+        console.log("FavouriteIndex", data)
+      }
+    )
+
   }, [])
 
   const filterArray = async (array) => {
@@ -44,6 +51,7 @@ export default function AccountPage() {
     console.log("Result", result)
     return result
   }
+
 
   return (
     <div className='h-screen w-screen '>

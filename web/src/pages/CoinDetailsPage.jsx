@@ -3,7 +3,7 @@ import { getAvailableTickers, getPriceHistory } from "../functions/coins"
 import { useParams } from 'react-router-dom'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts'
 import Navbar from "../components/Navbar"
-import { canIndexBeFollowed, makeObjectTracked, makeObjectUnTracked } from "../functions/userCoins"
+import { canIndexBeFollowed, makeObjectTracked, makeObjectUnTracked, getFavouriteIndex } from "../functions/userCoins"
 import { SupabaseContext } from '../supabaseContext'
 import { useContext } from "react"
 
@@ -30,6 +30,7 @@ export const CoinDetailsPage = () => {
     return change;
   }, [prices])
   const [canFollow, setCanFollow] = useState(true)
+  const [canFavourite, setCanFavourite] = useState(true)
   const [alert, setAlert] = useState(null);
   const supabase = useContext(SupabaseContext);
 
@@ -50,6 +51,18 @@ export const CoinDetailsPage = () => {
     )
   }, [coin, against, type, count])
 
+  const favouriteAdd = async () => {
+    const indexF = getFavouriteIndex(supabase)
+    console.log(indexF)
+    if (indexF.target_id === coin){
+      setCanFavourite(false)
+      //makeObjectUnTracked(supabase, false, coin);
+    } else {
+      setCanFavourite(true)
+      //makeObjectTracked(supabase, false, coin);
+    }
+  }
+
   return (
     <article className="max-h-screen flex flex-col items-center gap-4">
       <Navbar />
@@ -65,6 +78,11 @@ export const CoinDetailsPage = () => {
               }
             }}
           > {canFollow ? 'Add to tracked' : 'remove index tracking'} </button>
+          <button  className="btn btn-primary rounded-xl"
+          onClick={favouriteAdd}
+          >
+            {canFavourite ? 'Add to Favourite' : 'Remove from favourite'}
+          </button>
         </div>
         <div className="stats shadow">
           <div className="stat">
