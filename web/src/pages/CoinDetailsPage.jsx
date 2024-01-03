@@ -53,12 +53,12 @@ export const CoinDetailsPage = () => {
 
   const favouriteAdd = async () => {
     const indexF = getFavouriteIndex(supabase)
-    console.log(indexF)
+    console.log("indexF ", indexF)
     if (indexF.target_id === coin){
       setCanFavourite(false)
       await makeObjectUnFavourite(supabase, coin);
       //makeObjectUnTracked(supabase, false, coin);
-    } else {
+    } else {
       setCanFavourite(true)
       await makeObjectFavourite(supabase, coin);
       //makeObjectTracked(supabase, false, coin);

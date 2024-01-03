@@ -78,10 +78,11 @@ export const makeObjectFavourite = async(supabase, target_id) => {
         .eq('initiator_id', user.data.user.id)
         .eq('target_id', target_id)
         .select();
-    console.log(data)
+    
     if(error != null) {
         throw error;
     } else {
+        console.log("data from function", data)
         return data;
     }
 }
