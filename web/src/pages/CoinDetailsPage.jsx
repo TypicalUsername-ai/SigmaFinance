@@ -49,20 +49,32 @@ export const CoinDetailsPage = () => {
     canIndexBeFollowed(supabase, coin).then(
       (b) => setCanFollow(b)
     )
+
+    getFavouriteIndex(supabase).then(
+      data => {
+        if (data[0].target_id === coin) {
+          setCanFavourite(false);
+        } else {
+          setCanFavourite(true);
+        }
+      }
+    )
   }, [coin, against, type, count])
 
   const favouriteAdd = async () => {
-    const indexF = getFavouriteIndex(supabase)
+    const indexF = await getFavouriteIndex(supabase)
     console.log("indexF ", indexF)
-    if (indexF.target_id === coin){
-      setCanFavourite(false)
-      await makeObjectUnFavourite(supabase, coin);
-      //makeObjectUnTracked(supabase, false, coin);
+    if(indexF[0] != null){
+      if (indexF[0].target_id === coin){
+        await makeObjectUnFavourite(supabase, coin);
+      } else {
+        await makeObjectUnFavourite(supabase, indexF[0].target_id);
+        await makeObjectFavourite(supabase, coin);
+      }
     } else {
-      setCanFavourite(true)
       await makeObjectFavourite(supabase, coin);
-      //makeObjectTracked(supabase, false, coin);
     }
+    setCanFavourite(!canFavourite);
   }
 
   return (
@@ -76,7 +88,7 @@ export const CoinDetailsPage = () => {
               if (canFollow) {
                 makeObjectTracked(supabase, true, coin);
               } else {
-                makeObjectUnTracked(supabase, true, coin);
+                makeObjectUnTracked(supabase, coin);
               }
             }}
           > {canFollow ? 'Add to tracked' : 'remove index tracking'} </button>

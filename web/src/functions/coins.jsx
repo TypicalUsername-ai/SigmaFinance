@@ -9,6 +9,11 @@ export const getAllCoins = async () => {
   return data
 }
 
+export const getCoinName = async (ticker) => {
+  const response = await axios.get(`${BASE_URL}/latest/currencies.json`);
+  return response.data[ticker]
+}
+
 export const getAvailableTickers = async (ticker) => {
   const response = await axios.get(`${BASE_URL}/latest/currencies/${ticker}.min.json`);
   return Object.keys(response.data[ticker])
