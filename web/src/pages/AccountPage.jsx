@@ -1,15 +1,16 @@
 import Navbar from "../components/Navbar";
 import { useContext, useEffect, useState } from 'react'
 import { SupabaseContext } from '../supabaseContext'
-import { getAllCoins } from '../functions/coins';
+import { getAllCoins, getCoinName, getCoinPrice } from '../functions/coins';
 import CoinCard from '../components/CoinCard';
 import BigCoinCard from "../components/BigCoinCard";
-import { getTrackedIndices } from "../functions/userCoins";
+import { getTrackedIndices, getFavouriteIndex } from "../functions/userCoins";
 
 export default function AccountPage() {
 
   const supabase = useContext(SupabaseContext);
   const [coins, setCoins] = useState([]);
+  const [favourite, setFavourite] = useState(null);
   const [filterData, setFilterData] = useState([]);
 
   useEffect(() => {
@@ -26,6 +27,16 @@ export default function AccountPage() {
         )
       }
     )
+    getFavouriteIndex(supabase).then(
+      data => {
+        getCoinName(data[0].target_id).then(
+          coin => {
+            setFavourite({name: coin, symbol: data[0].target_id})
+          }
+        )
+      }
+    )
+
   }, [])
 
   const filterArray = async (array) => {
@@ -45,17 +56,18 @@ export default function AccountPage() {
     return result
   }
 
+
   return (
     <div className='h-screen w-screen '>
       <Navbar />
-      <section className="m-10">
+      {favourite != null ? <section className="m-10">
         <h1 className="text-4xl">Welcome back</h1>
         <h2 className="text-3xl m-auto my-0  w-1/2 mt-20">Your favourite index:</h2>
         <BigCoinCard
-          name="TEST"
-          symbol="TEST"
+          name={favourite.name}
+          symbol={favourite.symbol}
         />
-      </section>
+      </section> : null }
       <section className="m-10">
         <h1 className="text-4xl">Tracked Indices</h1>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>

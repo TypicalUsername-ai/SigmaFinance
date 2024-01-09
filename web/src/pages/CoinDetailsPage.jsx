@@ -3,7 +3,7 @@ import { getAvailableTickers, getPriceHistory } from "../functions/coins"
 import { useParams } from 'react-router-dom'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts'
 import Navbar from "../components/Navbar"
-import { canIndexBeFollowed, makeObjectTracked, makeObjectUnTracked } from "../functions/userCoins"
+import { canIndexBeFollowed, makeObjectTracked, makeObjectUnTracked, getFavouriteIndex, makeObjectFavourite, makeObjectUnFavourite } from "../functions/userCoins"
 import { SupabaseContext } from '../supabaseContext'
 import { useContext } from "react"
 
@@ -30,6 +30,7 @@ export const CoinDetailsPage = () => {
     return change;
   }, [prices])
   const [canFollow, setCanFollow] = useState(true)
+  const [canFavourite, setCanFavourite] = useState(true)
   const [alert, setAlert] = useState(null);
   const supabase = useContext(SupabaseContext);
 
@@ -48,7 +49,33 @@ export const CoinDetailsPage = () => {
     canIndexBeFollowed(supabase, coin).then(
       (b) => setCanFollow(b)
     )
+
+    getFavouriteIndex(supabase).then(
+      data => {
+        if (data[0].target_id === coin) {
+          setCanFavourite(false);
+        } else {
+          setCanFavourite(true);
+        }
+      }
+    )
   }, [coin, against, type, count])
+
+  const favouriteAdd = async () => {
+    const indexF = await getFavouriteIndex(supabase)
+    console.log("indexF ", indexF)
+    if(indexF[0] != null){
+      if (indexF[0].target_id === coin){
+        await makeObjectUnFavourite(supabase, coin);
+      } else {
+        await makeObjectUnFavourite(supabase, indexF[0].target_id);
+        await makeObjectFavourite(supabase, coin);
+      }
+    } else {
+      await makeObjectFavourite(supabase, coin);
+    }
+    setCanFavourite(!canFavourite);
+  }
 
   return (
     <article className="max-h-screen flex flex-col items-center gap-4">
@@ -61,10 +88,15 @@ export const CoinDetailsPage = () => {
               if (canFollow) {
                 makeObjectTracked(supabase, true, coin);
               } else {
-                makeObjectUnTracked(supabase, true, coin);
+                makeObjectUnTracked(supabase, coin);
               }
             }}
           > {canFollow ? 'Add to tracked' : 'remove index tracking'} </button>
+          <button  className="btn btn-primary rounded-xl"
+          onClick={favouriteAdd}
+          >
+            {canFavourite ? 'Add to Favourite' : 'Remove from favourite'}
+          </button>
         </div>
         <div className="stats shadow">
           <div className="stat">
