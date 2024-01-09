@@ -7,7 +7,7 @@ Home repo of the SigmaFinance build on top of docker with Supabase and React.js
 
 ## Table of Contents
 * [General info](#general-info)
-* [Prerequirements](#technologies)
+* [Prerequirements](#prerequirements)
 * [Technologies](#technologies)
 * [Installation](#installation)
 * [Setup](#setup)
@@ -19,7 +19,7 @@ SigmaFinance, designed for crypto and currency enthusiasts, is a cutting-edge pr
 Our authentication process is seamlessly integrated, allowing users to access the platform through their email address or seamlessly connect via Google or GitHub profiles. SigmaFinance is committed to delivering an unparalleled experience for users keen on staying informed and making informed decisions in the dynamic world of cryptocurrencies.
 ## Prerequirements
 
-* Node
+* git
 * Docker
 
 ## Technologies
