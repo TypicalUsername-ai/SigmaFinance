@@ -24,19 +24,12 @@ Our authentication process is seamlessly integrated, allowing users to access th
 
 ## Technologies
 
-* Supabase
-* Postgresql
-* Javascript
-* HTML5
-* React.js
-* Tailwind.js
-* Docker
-  
-
+- [Tailwind.js](https://tailwindcss.com/)
+- [Daisy UI](https://daisyui.com/)
+- [Docker](https://www.docker.com/)
 - Database [PostgreSQL](https://github.com/supabase/postgres)
 - Auth [GoTrue](https://github.com/supabase/gotrue)
 - Rest API [PostgREST](https://postgrest.org/en/stable/)
-
 - [React.js](https://react.dev/)
 - [Supabase SDK](https://supabase.com/docs/reference/javascript/installing)
 
