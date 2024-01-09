@@ -73,8 +73,8 @@ This command will create and start the Supabase container along with its depende
 
 Once the containers are up and running, you can access Supabase via:
 
-    Dashboard: Open your browser and go to http://localhost:5433 to access the Supabase dashboard.
-    API Access: Use http://localhost:5433 as the endpoint URL in your applications to interact with your local Supabase instance.
+    Dashboard: Open your browser and go to http://127.0.0.1:8000 to access the Supabase dashboard.
+    API Access: Use http://127.0.0.1:8080 as the endpoint URL in your applications to interact with your local Supabase instance.
 
 5. Shutting Down
 
