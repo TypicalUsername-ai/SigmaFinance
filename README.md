@@ -83,7 +83,7 @@ Testing was done manually by checking whether the success criteria of each user 
 The success criteria were defined by [Issues](https://github.com/typicalusername-ai/sigmafinance/issues) wich were tracked by the main User Stories marked with the `Priority` tags.
 The success criteria were define by issues marked with a `feat` Tag.
 The priority issues were split into [Milestones](https://github.com/typicalusername-ai/sigmafinance/milestones) which signifies which priority release and which parts of them were implemented.
-The priority 1 implementation which can be seen in [This milestone](https://github.com/typicalusername-ai/sigmafinance/milestone/1)
+The priority 1 implementation which can be seen in [This milestone](https://github.com/typicalusername-ai/sigmafinance/milestone/1?closed=1)
 
 ## CI
 
