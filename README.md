@@ -90,4 +90,4 @@ The priority 1 implementation which can be seen in [This milestone](https://gith
 The project has an automated CI Pipeline that builds the project on every PR and commit to the master branch. 
 If the build fails it will be marked on the repository page 
 
-[Pipeline file](../blob/master/.github/workflows/yarn-build.yml)
+[Pipeline file](../master/.github/workflows/yarn-build.yml)
