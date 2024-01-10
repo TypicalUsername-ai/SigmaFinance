@@ -80,10 +80,10 @@ docker-compose down
 ## Testing
 
 Testing was done manually by checking whether the success criteria of each user story were met. 
-The success criteria were defined by [Issues](../issues) wich were tracked by the main User Stories marked with the `Priority` tags.
+The success criteria were defined by [Issues](https://github.com/typicalusername-ai/sigmafinance/issues) wich were tracked by the main User Stories marked with the `Priority` tags.
 The success criteria were define by issues marked with a `feat` Tag.
-The priority issues were split into [Milestones](../milestones) which signifies which priority release and which parts of them were implemented.
-The priority 1 implementation which can be seen in [This milestone](../milestone/1)
+The priority issues were split into [Milestones](https://github.com/typicalusername-ai/sigmafinance/milestones) which signifies which priority release and which parts of them were implemented.
+The priority 1 implementation which can be seen in [This milestone](https://github.com/typicalusername-ai/sigmafinance/milestone/1)
 
 ## CI
 
