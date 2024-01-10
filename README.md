@@ -76,3 +76,18 @@ To stop the containers, run:
 ```bash
 docker-compose down
 ```
+
+## Testing
+
+Testing was done manually by checking whether the success criteria of each user story were met. 
+The success criteria were defined by [Issues](../issues) wich were tracked by the main User Stories marked with the `Priority` tags.
+The success criteria were define by issues marked with a `feat` Tag.
+The priority issues were split into [Milestones](../milestones) which signifies which priority release and which parts of them were implemented.
+The priority 1 implementation which can be seen in [This milestone](../milestone/1)
+
+## CI
+
+The project has an automated CI Pipeline that builds the project on every PR and commit to the master branch. 
+If the build fails it will be marked on the repository page 
+
+[Pipeline file](../blob/master/.github/workflows/yarn-build.yml)
