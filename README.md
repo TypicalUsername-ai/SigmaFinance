@@ -5,6 +5,12 @@
 
 Home repo of the SigmaFinance build on top of docker with Supabase and React.js
 
+## Authors
+
+ - Mateusz Domalewski [mdomalewski@student.agh.edu.pl](mailto:mdomalewski@student.agh.edu.pl)
+ - Ernest Strychalski [strychalski@student.agh.edu.pl](mailto:trychalski@student.agh.edu.pl)
+ - Taras Zhyhulin [zhyhulin@student.agh.edu.pl](mailto:zhyhulin@student.agh.edu.pl)
+
 ## Table of Contents
 * [General info](#general-info)
 * [Prerequirements](#prerequirements)
